@@ -18,8 +18,11 @@ class Model_sales extends CI_Model
 
     private function _get_datatables_query()
     {
-
+        $this->db->select($this->table . '.*, C.name AS customer_name, SUM(D.qty) AS count_barang');
         $this->db->from($this->table);
+        $this->db->join('m_customer C', 'C.kode = ' . $this->table . '.cust_id', 'inner');
+        $this->db->join('t_sales_det D', 'D.kode = ' . $this->table . '.kode', 'inner');
+        $this->db->group_by("D.kode");
 
         $i = 0;
 

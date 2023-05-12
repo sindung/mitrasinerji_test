@@ -73,13 +73,13 @@ class Sales extends CI_Controller
 
             // $customer_list = $this->model_customer->_get_customer()->result();
             // $barang_list = $this->model_barang->_get_barang()->result();
-            $jumlah_barang = $this->model_sales_det->count_by_kode($sales->kode);
+            // $jumlah_barang = $this->model_sales_det->count_by_kode($sales->kode);
 
             $row[] = $no;
             $row[] = $sales->kode;
             $row[] = date('d-M-Y', strtotime($sales->tgl));
-            $row[] = $sales->cust_id;
-            $row[] = $jumlah_barang;
+            $row[] = $sales->customer_name;
+            $row[] = $sales->count_barang;
             $row[] = number_format($sales->subtotal, 0, '', '');
             $row[] = number_format($sales->diskon, 0, '', '');
             $row[] = number_format($sales->ongkir, 0, '', '');
