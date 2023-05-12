@@ -1,3 +1,12 @@
+*******************
+Demo
+*******************
+
+Aplikasi ini ditujukan sebagai test
+`Demo <https://hofarismail.site/mitrasinerji_test>`_
+-  `User ID: admin`_
+-  `Password: admin`_
+
 ###################
 What is CodeIgniter
 ###################
