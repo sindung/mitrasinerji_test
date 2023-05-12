@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2023 at 02:32 PM
+-- Generation Time: May 12, 2023 at 03:46 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.0.25
 
@@ -115,7 +115,8 @@ INSERT INTO `t_sales_det` (`id`, `kode`, `sales_id`, `barang_id`, `harga_bandrol
 (4, '202305-00001', 202305, 'BA001', '500000', 2, '1', '50', '494950', '989900'),
 (5, '202305-00001', 202305, 'BA002', '4500', 3, '0', '0', '4500', '13500'),
 (6, '202305-00002', 202305, 'BA002', '4500', 5, '10', '0', '4050', '20250'),
-(7, '202305-00002', 202305, 'BA001', '500000', 2, '0', '0', '500000', '1000000');
+(7, '202305-00002', 202305, 'BA001', '500000', 2, '0', '0', '500000', '1000000'),
+(9, '202305-00002', 202305, 'BA002', '500000', 2, '0', '0', '500000', '1000000');
 
 -- --------------------------------------------------------
 
@@ -179,13 +180,15 @@ INSERT INTO `user_role` (`id`, `name`, `nota`, `super`, `history`) VALUES
 -- Indexes for table `m_barang`
 --
 ALTER TABLE `m_barang`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kode` (`kode`);
 
 --
 -- Indexes for table `m_customer`
 --
 ALTER TABLE `m_customer`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kode` (`kode`);
 
 --
 -- Indexes for table `t_sales`
@@ -198,7 +201,9 @@ ALTER TABLE `t_sales`
 -- Indexes for table `t_sales_det`
 --
 ALTER TABLE `t_sales_det`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `constraint_barang` (`barang_id`),
+  ADD KEY `constraint_kode` (`kode`);
 
 --
 -- Indexes for table `user`
@@ -239,7 +244,7 @@ ALTER TABLE `t_sales`
 -- AUTO_INCREMENT for table `t_sales_det`
 --
 ALTER TABLE `t_sales_det`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -252,6 +257,17 @@ ALTER TABLE `user`
 --
 ALTER TABLE `user_role`
   MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `t_sales_det`
+--
+ALTER TABLE `t_sales_det`
+  ADD CONSTRAINT `constraint_barang` FOREIGN KEY (`barang_id`) REFERENCES `m_barang` (`kode`),
+  ADD CONSTRAINT `constraint_kode` FOREIGN KEY (`kode`) REFERENCES `t_sales` (`kode`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
