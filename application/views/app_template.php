@@ -144,7 +144,7 @@
     </div>
 
     <footer class="my-5 pt-5 text-muted text-center text-small d-print-none">
-        <p class="mb-1">&copy; 2019 H-Soft</p>
+        <p class="mb-1">&copy; 2023 H-Soft</p>
         <ul class="list-inline">
             <li class="list-inline-item"><a href="mailto:g9.hofar.ismail@gmail.com"><i class="far fa-fw fa-envelope"></i> Email</a></li>
             <li class="list-inline-item"><a href="https://api.whatsapp.com/send?phone=6281226490344" target="_wa"><i class="fab fa-fw fa-whatsapp"></i> WhatsApp</a></li>
