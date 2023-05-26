@@ -1,19 +1,23 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Role extends CI_Controller {
+class Role extends CI_Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         is_logged_in();
     }
 
-    public function index() {
+    public function index()
+    {
         $this->manajemen();
     }
 
-    public function manajemen() {
+    public function manajemen()
+    {
         $array = array();
 
         $data = array(
@@ -25,7 +29,8 @@ class Role extends CI_Controller {
         $this->parser->parse('app_template', $data);
     }
 
-    public function ajax_list() {
+    public function ajax_list()
+    {
         $this->load->helper('url');
 
         $list = $this->model_role->get_datatables();
@@ -41,9 +46,12 @@ class Role extends CI_Controller {
             $row[] = ($role->history == '1' ? 'Yes' : 'No');
 
             //add html for action
-            $row[] = '<a class="btn btn-sm btn-outline-info mr-1 ubah-data" href="javascript:void(0)" title="Edit" data-id="' . $role->id . '"><i class="fas fa-edit"></i></a>'
-                    . '<a class="btn btn-sm btn-outline-danger hapus-data" href="javascript:void(0)" title="Hapus" data-id="' . $role->id . '"><i class="fas fa-trash"></i></a>';
-
+            $html = '<a class="btn btn-sm btn-outline-info mr-1 ubah-data" href="javascript:void(0)" title="Edit" data-id="' . $role->id . '"><i class="fas fa-edit"></i></a>'
+                . '<a class="btn btn-sm btn-outline-danger hapus-data" href="javascript:void(0)" title="Hapus" data-id="' . $role->id . '"><i class="fas fa-trash"></i></a>';
+            if ($role->id === '1') {
+                $html = "";
+            }
+            $row[] = $html;
             $data[] = $row;
         }
 
@@ -57,13 +65,15 @@ class Role extends CI_Controller {
         echo json_encode($output);
     }
 
-    public function ajax_edit($id) {
+    public function ajax_edit($id)
+    {
         $data = $this->model_role->get_role($id)->row();
 
         echo json_encode($data);
     }
 
-    public function ajax_add() {
+    public function ajax_add()
+    {
         $this->_validate();
 
         $data = array(
@@ -78,7 +88,8 @@ class Role extends CI_Controller {
         echo json_encode(array("status" => true));
     }
 
-    public function ajax_update() {
+    public function ajax_update()
+    {
         $this->_validate();
 
         $data = array(
@@ -93,12 +104,14 @@ class Role extends CI_Controller {
         echo json_encode(array("status" => true));
     }
 
-    public function ajax_delete($id) {
+    public function ajax_delete($id)
+    {
         $this->model_role->delete_by_id($id);
         echo json_encode(array("status" => true));
     }
 
-    public function ajax_bulk_delete() {
+    public function ajax_bulk_delete()
+    {
         $list_id = $this->input->post('id');
         foreach ($list_id as $id) {
             $this->model_role->delete_by_id($id);
@@ -106,7 +119,8 @@ class Role extends CI_Controller {
         echo json_encode(array("status" => true));
     }
 
-    private function _validate() {
+    private function _validate()
+    {
         $data = array();
         $data['error_string'] = array();
         $data['inputerror'] = array();
@@ -124,7 +138,8 @@ class Role extends CI_Controller {
         }
     }
 
-    public function get_role() {
+    public function get_role()
+    {
         $status = false;
         $opt = array();
 
@@ -143,5 +158,4 @@ class Role extends CI_Controller {
         );
         echo json_encode($response);
     }
-
 }
