@@ -2,7 +2,8 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Model_user extends CI_Model {
+class Model_user extends CI_Model
+{
 
     public $table = 'user';
     public $user_role = 'user_role';
@@ -10,12 +11,14 @@ class Model_user extends CI_Model {
     public $column_search = array('nama', 'user_id'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     public $order = array('create_at' => 'desc'); // default order
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load->database();
     }
 
-    private function _get_datatables_query() {
+    private function _get_datatables_query()
+    {
 
         $this->db->from($this->table);
 
@@ -46,7 +49,8 @@ class Model_user extends CI_Model {
         }
     }
 
-    public function get_datatables() {
+    public function get_datatables()
+    {
         $this->db->query("SET sql_mode = '' ");
         $this->_get_datatables_query();
         $input_length = filter_input(INPUT_POST, 'length');
@@ -58,18 +62,21 @@ class Model_user extends CI_Model {
         return $query->result();
     }
 
-    public function count_filtered() {
+    public function count_filtered()
+    {
         $this->_get_datatables_query();
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    public function count_all() {
+    public function count_all()
+    {
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
 
-    public function get_by_id($id) {
+    public function get_by_id($id)
+    {
         $this->db->query("SET sql_mode = '' ");
         $this->db->from($this->table);
         $this->db->where('id', $id);
@@ -78,7 +85,8 @@ class Model_user extends CI_Model {
         return $query->row();
     }
 
-    public function get_by_user_id($id) {
+    public function get_by_user_id($id)
+    {
         $this->db->query("SET sql_mode = '' ");
         $this->db->from($this->table);
         $this->db->where('user_id', $id);
@@ -87,32 +95,35 @@ class Model_user extends CI_Model {
         return $query->row();
     }
 
-    public function save($data) {
+    public function save($data)
+    {
         $this->db->query("SET sql_mode = '' ");
         $this->db->insert($this->table, $data);
         return $this->db->insert_id();
     }
 
-    public function update($where, $data) {
+    public function update($where, $data)
+    {
         $this->db->query("SET sql_mode = '' ");
         $this->db->update($this->table, $data, $where);
         return $this->db->affected_rows();
     }
 
-    public function delete_by_id($id) {
+    public function delete_by_id($id)
+    {
         $this->db->query("SET sql_mode = '' ");
         $this->db->where('id', $id);
         $this->db->delete($this->table);
     }
 
-    public function _get_produk($id = '') {
+    public function _get_user($id = '')
+    {
         $this->db->query("SET sql_mode = '' ");
         $this->db->from($this->table);
         if ($id != '') {
             $this->db->where('id', $id);
         }
         $query = $this->db->get();
-        return $query;
+        return $query->result();
     }
-
 }
